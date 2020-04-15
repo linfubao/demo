@@ -37,10 +37,7 @@ export default class NewClass extends cc.Component {
         this.ball.runAction(
             cc.sequence(
                 cc.moveBy(0.25, 0, this.move_h).easing(cc.easeCubicActionOut()),
-                cc.moveBy(0.25, 0, -this.move_h).easing(cc.easeCubicActionIn()),
-                cc.callFunc((target,a)=>{
-                    console.log(target,a);
-                },this,100)//新发现的写法
+                cc.moveBy(0.25, 0, -this.move_h).easing(cc.easeCubicActionIn())
             ).repeatForever()
         );
     }
@@ -134,6 +131,8 @@ export default class NewClass extends cc.Component {
         GD.monsterCollider = false;
     }
     update(dt) {
+        console.log("update");
+        this.ball.runAction(cc.scaleTo(1,2,2));
         Utils.openDebugDraw(this.debug, "collider");
         if (this.leftFlag) {
             this.speed -= 800 * dt;
@@ -147,5 +146,9 @@ export default class NewClass extends cc.Component {
             }
         }
         this.ball.x += this.speed * dt;
+    }
+    lateUpdate(){
+        console.log("lateUpdate");
+        this.ball.runAction(cc.scaleTo(1,0.5,0.5));
     }
 }
