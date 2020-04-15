@@ -132,7 +132,7 @@ export default class Cut2 extends cc.Component {
             // 设置本体
             collider.points = maxPointsResult;
             collider.apply();
-            collider.node.getComponent('item2').draw();
+            collider.node.getComponent('itemMain').draw();
             // 克隆 N 个
             for (let j = 0; j < splitResults.length; j++) {
                 let splitResult = splitResults[j];
@@ -144,7 +144,7 @@ export default class Cut2 extends cc.Component {
                 const comp = cloneNode.getComponent(cc.PhysicsPolygonCollider);
                 comp.points = splitResult;
                 comp.apply();
-                cloneNode.getComponent("item2").draw();
+                cloneNode.getComponent("itemMain").draw();
             }
             
         }

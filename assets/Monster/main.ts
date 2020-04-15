@@ -1,4 +1,4 @@
-import utils from "../utils/util";
+import Utils from "../utils/utils";
 import GD from "../utils/global";
 const { ccclass, property } = cc._decorator;
 
@@ -134,7 +134,7 @@ export default class NewClass extends cc.Component {
         GD.monsterCollider = false;
     }
     update(dt) {
-        utils.openDebugDraw(this.debug, "collider");
+        Utils.openDebugDraw(this.debug, "collider");
         if (this.leftFlag) {
             this.speed -= 800 * dt;
             if (this.speed <= -this.speed_max) {

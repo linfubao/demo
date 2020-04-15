@@ -39,4 +39,7 @@ export default class Menu extends cc.Component {
     goCutScene(){
         cc.director.loadScene('cutMain');
     }
+    goMonsterScene(){
+        cc.director.loadScene('Monster');
+    }
 }

@@ -1,3 +1,5 @@
+import Utils from "../../utils/utils";
+
 // 重力
 let G = -640;
 // 固定速度
@@ -23,14 +25,11 @@ export default class Arrow extends cc.Component {
     downBow: cc.Node = null;//下弦
     @property({
         type:cc.Toggle,
-        tooltip:"是否开启物理调试信息"
-    })
-    debugDraw: cc.Toggle = null;
-    @property({
-        type:cc.Toggle,
         tooltip:"是否允许射箭"
     })
     canFire: cc.Toggle = null;
+    @property(cc.Toggle)
+    debug: cc.Toggle = null;
 
     arrowPool: cc.NodePool = null;
     arrowNode: cc.Node = null;
@@ -212,12 +211,6 @@ export default class Arrow extends cc.Component {
         // this.arrowBox.children[this.index].getComponent(cc.PhysicsBoxCollider).tag = this.index;
     }
     update(dt) {
-        if (this.debugDraw.isChecked) {
-            cc.director.getPhysicsManager().debugDrawFlags = cc.PhysicsManager.DrawBits.e_aabbBit | cc.PhysicsManager.DrawBits.e_jointBit | cc.PhysicsManager.DrawBits.e_shapeBit;
-            cc.find('Canvas/bg').opacity = 25;
-        } else {
-            cc.director.getPhysicsManager().debugDrawFlags = 0;
-            cc.find('Canvas/bg').opacity = 200;
-        }
+        Utils.openDebugDraw(this.debug,"physics");
     }
 }
