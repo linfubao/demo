@@ -1,4 +1,3 @@
-import { array, EventTouch } from './../creator.d';
 
 const {ccclass, property} = cc._decorator;
 
@@ -11,7 +10,7 @@ export default class Menu extends cc.Component {
     onLoad () {
         
     }
-    menuBtn(e:EventTouch){        
+    menuBtn(e:cc.Event){                
         let btn = e.target;        
         this.box = this.node.getChildByName('box');
         let action = cc.sequence(
@@ -30,16 +29,27 @@ export default class Menu extends cc.Component {
         );
         btn.runAction(action);
     }
+    fadeOut(scene){
+        let _t = 0.2;
+        this.node.parent.runAction(cc.fadeOut(_t));
+        this.scheduleOnce(()=>{
+            cc.director.loadScene(scene);
+        },0.15);
+    }
     goBirdScene(){        
-        cc.director.loadScene("flayBird");
+        this.fadeOut("flayBird");
     }
     goArrowScene(){
-        cc.director.loadScene("arrow");
+        this.fadeOut("arrow");
     }
     goCutScene(){
-        cc.director.loadScene('cutMain');
+        console.log("标记1");
+        
+        this.fadeOut('cutMain');
     }
     goMonsterScene(){
-        cc.director.loadScene('Monster');
+        console.log("标记2");
+
+        this.fadeOut('Monster');
     }
 }

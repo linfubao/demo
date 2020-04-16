@@ -57,6 +57,7 @@ export default class Helloworld extends cc.Component {
         this.node.off("touchend");
         this.btnPlay.active = true;
         G.gameOver = false;
+        
     }
     fitterGround(){
         this.bg1.width = this.viewWidth;

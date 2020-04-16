@@ -20,7 +20,7 @@ export default class Star extends cc.Component {
         other.node.stopAllActions();
         this.starPool.put(other.node);
         this.updateScore();
-        cc.find('Canvas').getComponent("main").creatStar();
+        cc.find('Canvas').getComponent("monsterMain").creatStar();
     }
     updateScore(){
         this.scoreNum += 1;

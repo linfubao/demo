@@ -48,6 +48,9 @@ export default class Arrow extends cc.Component {
         }
         this.arrowPool = arrowPool;
     }
+    onEnable(){
+
+    }
     onDisable() {
         cc.director.getPhysicsManager().enabled = false;
     }
@@ -62,7 +65,6 @@ export default class Arrow extends cc.Component {
         this.creatPool();
         this.creatOneArrow();
         this.touchEvent();
-
     }
     fitterView() {
         this.view_w = cc.view.getVisibleSize().width;

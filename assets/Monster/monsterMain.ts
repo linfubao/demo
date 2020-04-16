@@ -40,6 +40,7 @@ export default class NewClass extends cc.Component {
                 cc.moveBy(0.25, 0, -this.move_h).easing(cc.easeCubicActionIn())
             ).repeatForever()
         );
+        
     }
     pools() {
         this.starPool = new cc.NodePool();
@@ -84,11 +85,8 @@ export default class NewClass extends cc.Component {
             ).repeatForever()
         );
     }
-    // test(e){
-    //     console.log(e);
-        
-    // }
     touchEvent() {
+        this.left.emit("touchstart");
         this.left.on("touchstart", this._leftStart, this);
         this.right.on("touchstart", this._rightStart, this);
         this.playState.on("touchstart", this._playState, this);
@@ -102,37 +100,33 @@ export default class NewClass extends cc.Component {
         node.getComponent(cc.Label).string = state;
     }
     _leftStart(e) {
-        if(!this.startGame){
-            this.warnLab.string = "该死,先开始游戏才能移动小怪兽!!!";
-            this.warnWord();
-            return;
-        };
+        if(this.warnWord())return;
         this.leftFlag = true;
         this.rightFlag = false;
     }
+
     _rightStart(e) {
-        if(!this.startGame){
-            this.warnLab.string = "该死,先开始游戏才能移动小怪兽!!!";
-            this.warnWord();
-            return;
-        };
+        if(this.warnWord())return;
         this.leftFlag = false;
         this.rightFlag = true;
     }
     warnWord(){
-        this.warnLab.node.runAction(
-            cc.sequence(
-                cc.fadeIn(0.2),
-                cc.fadeOut(1),
-            )
-        );
+        if(!this.startGame){
+            this.warnLab.string = "该死,先开始游戏才能移动小怪兽!!!";
+            this.warnLab.node.runAction(
+                cc.sequence(
+                    cc.fadeIn(0.2),
+                    cc.fadeOut(1),
+                )
+            );
+            return true;
+        };
+        return false;
     }
     onDestroy() {
         GD.monsterCollider = false;
     }
     update(dt) {
-        console.log("update");
-        this.ball.runAction(cc.scaleTo(1,2,2));
         Utils.openDebugDraw(this.debug, "collider");
         if (this.leftFlag) {
             this.speed -= 800 * dt;
@@ -146,9 +140,5 @@ export default class NewClass extends cc.Component {
             }
         }
         this.ball.x += this.speed * dt;
-    }
-    lateUpdate(){
-        console.log("lateUpdate");
-        this.ball.runAction(cc.scaleTo(1,0.5,0.5));
     }
 }
